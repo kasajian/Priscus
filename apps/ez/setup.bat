@@ -1,27 +1,27 @@
 cd ezcurl
-call npm intall
+call npm install
 call npm prune
 call npm link
 cd ..
 
 cd ezrest
-call npm intall
+call npm install
 call npm prune
-call npm link ezcurl
 call npm link
+call npm link ezcurl
 cd ..
 
 cd eztfs
-call npm intall
+call npm install
 call npm prune
-call npm link ezrest
 call npm link
+call npm link ezrest
 cd ..
 
 cd app
 call npm install
-call npm prune
 call npm link eztfs
+call npm prune
 cd ..
 
 call npm ls --global --depth=0 ezcurl ezrest
