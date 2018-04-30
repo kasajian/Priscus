@@ -3,10 +3,10 @@ var eztfs = require('eztfs');
 process.env.flagLogCommand=true
 //delete process.env.flagLogCommand
 
-eztfs.globalConfig.defaultUrlBasePath = "http://swtfsss.dev.wonderware.com:8080/tfs/SimSci";
-eztfs.globalConfig.defaultUrlPathArgs = {'teamPrj':"NextGen Sim"};
-
-var tfs = eztfs.ezrest.makeMethods(eztfs.api, eztfs.globalConfig);
+var tfs = eztfs.ezrest.makeMethods(eztfs.api, Object.assign(eztfs.globalConfig, {
+    defaultUrlBasePath: "http://swtfsss.dev.wonderware.com:8080/tfs/SimSci",
+    defaultUrlPathArgs: {'teamPrj':"NextGen Sim"}
+}));
 
 
 //**************************************************************/
