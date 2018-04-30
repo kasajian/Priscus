@@ -6,7 +6,15 @@
   "scripts": {
     "test": "mocha"
   },
-  "keywords": ["REST", "Integrated Windows Authentication", "SPNEGO", "Kerberos", "NEGOTIATE", "NTLM", "ezcurl"],
+  "keywords": [
+    "REST",
+    "Integrated Windows Authentication",
+    "SPNEGO",
+    "Kerberos",
+    "NEGOTIATE",
+    "NTLM",
+    "ezcurl"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {

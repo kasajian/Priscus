@@ -3,7 +3,15 @@
   "version": "1.0.0",
   "description": "Flexible client-side REST API constructor -- with focus on low-abstraction of REST, easily add new wrappers to simplify coding and pre-configured to support Windows Authentication for on-prem scenarios",
   "main": "index.js",
-  "keywords": ["REST", "Integrated Windows Authentication", "SPNEGO", "Kerberos", "NEGOTIATE", "NTLM", "ezcurl"],
+  "keywords": [
+    "REST",
+    "Integrated Windows Authentication",
+    "SPNEGO",
+    "Kerberos",
+    "NEGOTIATE",
+    "NTLM",
+    "ezcurl"
+  ],
   "author": "Kenneth Kasajian",
   "license": "MIT",
   "dependencies": {

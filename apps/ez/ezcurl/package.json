@@ -3,7 +3,14 @@
   "version": "1.0.0",
   "description": "Make HTTP requests using this simple wrapper around 'node-libcurl', with typically preconfigurations such as using Integrated Windows Authentication / SPNEGO via Kerberos NEGOTIATE or NTLM",
   "main": "index.js",
-  "keywords": ["curl", "Integrated Windows Authentication", "SPNEGO", "Kerberos", "NEGOTIATE", "NTLM"],
+  "keywords": [
+    "curl",
+    "Integrated Windows Authentication",
+    "SPNEGO",
+    "Kerberos",
+    "NEGOTIATE",
+    "NTLM"
+  ],
   "author": "Kenneth Kasajian",
   "license": "MIT",
   "dependencies": {
