@@ -1,0 +1,15 @@
+{
+  "name": "eztfs",
+  "version": "1.0.0",
+  "description": "TFS API defined using ezrest, enabling easily adding new APIs, as well as pre-configured support for Windows Authentication through ezcurl, for on-prem scenarios",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": ["REST", "Integrated Windows Authentication", "SPNEGO", "Kerberos", "NEGOTIATE", "NTLM", "ezcurl"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^5.1.1"
+  }
+}

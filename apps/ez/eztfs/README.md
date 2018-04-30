@@ -1,11 +1,11 @@
-# ezrest
+# eztfs
 
 >  description
 
 ## Installation
 ```bash
-$ npm i -S ezrest
-$ yarn add ezrest
+$ npm i -S eztfs
+$ yarn add eztfs
 ```
 
 ## Quick start

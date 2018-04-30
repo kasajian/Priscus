@@ -1,4 +1,4 @@
-var commonConfig = require('./ezCurl/commonConfig.js');
+var curlCommonConfig = require('ezrest').curlCommonConfig;
 
 // An missing API can be easily added by adding its configuration to this list.
 
@@ -96,7 +96,7 @@ var api = {
     // tfs.tfsUpdateWorkItem({urlPathArgs:[506661],curlOpts:{'POSTFIELDS':JSON.stringify(postFields)}}).then(function(data) {
     //     console.dir(JSON.parse(data.body));
     // });
-    tfsUpdateWorkItem:  {urlPathTpl:'{urlBasePath}/_apis/wit/workitems/{id}', curlOpts:commonConfig.onPremNegotiatePatch},
+    tfsUpdateWorkItem:  {urlPathTpl:'{urlBasePath}/_apis/wit/workitems/{id}', curlOpts:curlCommonConfig.onPremNegotiatePatch},
 
     // Get Team Project list
     //
@@ -111,7 +111,7 @@ var api = {
     //
     //     console.dir(JSON.parse(data.body));
     // });
-    tfsProjUpdateWorkItem:  {urlPathTpl:'{urlBasePath}/{teamPrj}/_apis/wit/workitems/${type}', curlOpts:commonConfig.onPremNegotiatePatch}
+    tfsProjUpdateWorkItem:  {urlPathTpl:'{urlBasePath}/{teamPrj}/_apis/wit/workitems/${type}', curlOpts:curlCommonConfig.onPremNegotiatePatch}
 
 };
 

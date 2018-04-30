@@ -3,17 +3,11 @@
   "version": "1.0.0",
   "description": "Flexible client-side REST API constructor -- with focus on low-abstraction of REST, easily add new wrappers to simplify coding and pre-configured to support Windows Authentication for on-prem scenarios",
   "main": "index.js",
-  "scripts": {
-    "test": "mocha"
-  },
-  "keywords": ["REST", "Integrated Windows Authentication", "SPNEGO", "Kerberos", "NEGOTIATE", "NTLM"],
+  "keywords": ["REST", "Integrated Windows Authentication", "SPNEGO", "Kerberos", "NEGOTIATE", "NTLM", "ezcurl"],
   "author": "Kenneth Kasajian",
   "license": "MIT",
   "dependencies": {
     "bluebird": "^3.5.1",
     "url-template": "^2.0.8"
-  },
-  "devDependencies": {
-    "mocha": "^5.1.1"
   }
 }

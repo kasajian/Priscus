@@ -1,6 +1,3 @@
 {
-  "name": "app",
-  "scripts": {
-    "start": "node index.js"
-  }
+  "name": "app"
 }

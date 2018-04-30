@@ -1,7 +1,16 @@
 var makeCommand = require('./makeCommand');
-var api = require('./api');
 
-module.exports = {api};
-Object.keys(api).forEach(function(key) {
-    module.exports[key] = makeCommand(api[key])
-});
+function makeMethods(api, globalConfig) {
+    var obj = {};
+    Object.keys(api).forEach(function(key) {
+        var def = Object.assign({}, {globalConfig}, api[key]);
+        obj[key] = makeCommand(def);
+    });
+    return obj;
+}
+
+module.exports = {
+    curlCommonConfig: require('ezcurl').commonConfig,
+    makeCommand,
+    makeMethods
+};

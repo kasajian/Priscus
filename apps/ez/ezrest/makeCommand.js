@@ -2,8 +2,7 @@ var util = require('util');
 var querystring = require('querystring');
 var Promise = require('bluebird')
 var urltemplate = require('url-template');
-var curlToTfs = require('./ezCurl/index.js');
-var globalConfig = require('./globalConfig');
+var ezcurl = require('ezcurl');
 
 // Parameter: {
 //  urlPathTpl,     never undefined.  can have format string compatible with util.format, which gets arguments from urlPathArgs
@@ -12,9 +11,10 @@ var globalConfig = require('./globalConfig');
 //  urlBasePath,    url to the team project collection, without team project name.  must end with '/'.  If undefined, env with same name is used. eg. http://fabrikam-fiber-inc.visualstudio.com/DefaultCollection/
 // }
 function constructUrl(p) {
-    var urlBasePath =  p.urlBasePath || globalConfig.defaultUrlBasePath();
-    var urlPath = urltemplate.parse(p.urlPathTpl).expand(Object.assign({}, globalConfig.defaultUrlPathArgs(), p.urlPathArgs));
-    var urlQuery = Object.assign({}, globalConfig.defaultUrlQuery(), p.urlQuery);
+    var globalConfig = p.globalConfig || {};
+    var urlBasePath =  p.urlBasePath || globalConfig.defaultUrlBasePath;
+    var urlPath = urltemplate.parse(p.urlPathTpl).expand(Object.assign({}, globalConfig.defaultUrlPathArgs, p.urlPathArgs));
+    var urlQuery = Object.assign({}, globalConfig.defaultUrlQuery, p.urlQuery);
 
     var url = urlBasePath + urlPath + '?' + querystring.stringify(urlQuery);;
     if (process.env.flagLogCommand) {
@@ -42,7 +42,7 @@ function makeCommand(p) {
         return new Promise(function (resolve) {
             m = mergeEach(p, pp);
             var url = constructUrl(m);
-            resolve(curlToTfs.curlPerform(curlToTfs.curlCreateFor(url, m.curlOpts)));
+            resolve(ezcurl.perform(ezcurl.createFor(url, m.curlOpts)));
         });
     }
 }
@@ -62,4 +62,3 @@ makeCommand.constructUrl = constructUrl;
 makeCommand.mergeEach = mergeEach;
 
 module.exports = makeCommand;
-

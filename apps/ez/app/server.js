@@ -1,15 +1,19 @@
-var tfs = require('./index.js');
+var eztfs = require('eztfs');
 
-process.env.urlBasePath = "http://swtfsss.dev.wonderware.com:8080/tfs/SimSci";
-process.env.tfsTeamPrj = "NextGen Sim"
 process.env.flagLogCommand=true
 //delete process.env.flagLogCommand
-var samples = [];
+
+eztfs.globalConfig.defaultUrlBasePath = "http://swtfsss.dev.wonderware.com:8080/tfs/SimSci";
+eztfs.globalConfig.defaultUrlPathArgs = {'teamPrj':"NextGen Sim"};
+
+var tfs = eztfs.ezrest.makeMethods(eztfs.api, eztfs.globalConfig);
 
 
 //**************************************************************/
 // Sample code:
 //**************************************************************/
+var samples = [];
+
 samples.push(Sample_tfsGetChangeset);
 function Sample_tfsGetChangeset() {
     console.log(); console.log("tfs.tfsGetChangeset:");
@@ -112,7 +116,7 @@ function Sample_tfsProjUpdateWorkItem() {
 
 // Run them in sequence
 function run(samplesLeft) {
-    if (samplesLeft.length == 0) return;
+    if (samplesLeft.length === 0) return;
     samplesLeft[0]().then(function() {
         run(samplesLeft.slice(1));
     })

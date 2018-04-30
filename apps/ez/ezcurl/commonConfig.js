@@ -15,5 +15,7 @@ var onPremNegotiatePatch = Object.assign({}, onPremNegotiate, {
     'HTTPHEADER': ['Content-Type: application/json-patch+json']
 });
 
-module.exports.onPremNegotiate = onPremNegotiate;
-module.exports.onPremNegotiatePatch = onPremNegotiatePatch;
+module.exports = {
+    onPremNegotiate,
+    onPremNegotiatePatch,
+};

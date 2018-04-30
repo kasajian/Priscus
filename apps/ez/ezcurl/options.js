@@ -4,4 +4,6 @@
 var commonConfig = require('./commonConfig.js');
 
 // if curl options aren't specified, the default set here is used.
-module.exports.defaultCurlOptions = function() { return commonConfig.onPremNegotiate; };
+module.exports = {
+    defaultCurlOptions: commonConfig.onPremNegotiate
+};
