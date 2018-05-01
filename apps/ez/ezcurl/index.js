@@ -1,7 +1,6 @@
 var Promise = require('bluebird')
 var Curl = require('node-libcurl').Curl;
 var url = require('url');
-var options = require('./options');
 var commonConfig = require('./commonConfig.js');
 
 // Use libcurl so that we can use spnego.  This is so we can leverage Integrated Windows Authentication,
@@ -15,7 +14,7 @@ var commonConfig = require('./commonConfig.js');
 // See "Negotiate or NTLM authentication" in curl --manual
 
 // Example:
-//     perform(createFor(url))
+//     perform(createFor(url, curlOpts))
 //
 // Creates a curl object for the given url
 // Uses credentials of signed-on user by default
@@ -25,7 +24,7 @@ function createFor(urlString, curlOpts) {
   var endpointUrl = url.parse(endpoint);
   var curl = new Curl();
 
-  curlOpts = Object.assign({}, curlOpts || options.defaultCurlOptions);
+  curlOpts = Object.assign({}, curlOpts);
   curlOpts['URL'] = endpoint;
   Object.keys(curlOpts).forEach(function(key) {
     curl.setOpt( key, curlOpts[key] );
@@ -48,7 +47,10 @@ function perform(curl) {
         }
         this.close();
     });
-    curl.on( 'error', curl.close.bind( curl ) );
+    curl.on( 'error', function( err, curlErrorCode ) {
+      reject({error:{ err, curlErrorCode }});
+      this.close();    
+    });
     curl.perform();
   });
 }

@@ -8,8 +8,14 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "app",
-            "program": "${workspaceFolder}/app/server.js"
+            "name": "app onpremwin",
+            "program": "${workspaceFolder}/app/onpremwin.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "app vso",
+            "program": "${workspaceFolder}/app/vso.js"
         },
         {
             "type": "node",
