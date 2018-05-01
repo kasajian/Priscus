@@ -3,7 +3,7 @@ var eztfs = require('eztfs');
 process.env.flagLogCommand=true
 //delete process.env.flagLogCommand
 
-var tfs = eztfs.makeTfsOnPremNegotiateStrategy("http://swtfsss.dev.wonderware.com:8080/tfs/SimSci",  {'teamPrj':"NextGen Sim"});
+var tfs = eztfs.makeTfs("http://swtfsss.dev.wonderware.com:8080/tfs/SimSci",  {'teamPrj':"NextGen Sim"}, eztfs.curlOptsStrategy.onPremNegotiate());
 
 var samples = [];
 
@@ -118,14 +118,28 @@ function Sample_tfsProjUpdateWorkItem() {
     console.log(); console.log("tfs.tfsProjUpdateWorkItem:");
     var postFields = [ {
         "op": "add", 
+        "path": "/fields/Invensys.Team",
+        "value": "SC SE"
+    }, {
+        "op": "add", 
+        "path": "/fields/Microsoft.VSTS.Scheduling.RemainingWork",
+        "value": "1"
+    }, {
+        "op": "add", 
+        "path": "/fields/Microsoft.VSTS.Common.Activity",
+        "value": "Development"
+    }, {
+        "op": "add", 
         "path": "/fields/System.Title",
         "value": "sample task with title"
-    } ];
+    }, ];
     
     var promise = tfs.tfsProjUpdateWorkItem({urlPathArgs:{type:'Task'},curlOpts:{'POSTFIELDS':JSON.stringify(postFields)},urlQuery:{validateOnly:true}});
     return dump(promise); // replace with application logic
 }
 
+// samples = [];
+// samples.push(Sample_tfsProjUpdateWorkItem);
 
 //**************************************************************/
 

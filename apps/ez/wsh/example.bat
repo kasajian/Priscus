@@ -1,1 +1,1 @@
-cscript /nologo /b cs2user.js 263682
+cscript /nologo /b cs2user.cmd.js 263682

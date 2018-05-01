@@ -57,10 +57,40 @@ describe('tfsGetTestRuns', function() {
 
 describe('tfsGetTestResults', function() {
   it('construction', function() {
-    var p = {urlPathArgs:{testRunId:207812}, urlQuery:{detailsToInclude:'WorkItems,Iterations',$top:100} };
+    var p = {urlPathArgs:{testRunId:207812}, urlQuery:{detailsToInclude:'WorkItems,Iterations',$top:100}};
     var pp = api.tfsGetTestResults;
     var actual = constructUrlTest(p,pp);
     var expected = 'http://fabrikam-fiber-inc.visualstudio.com/DefaultCollection/Azure%20Website/_apis/test/runs/207812/results?api-version=3.0&detailsToInclude=WorkItems%2CIterations&%24top=100';
+    assert.equal(actual, expected);            
+  });
+});
+
+describe('tfsGetWorkPlans', function() {
+  it('construction', function() {
+    var p = {};
+    var pp = api.tfsGetWorkPlans;
+    var actual = constructUrlTest(p,pp);
+    var expected = 'http://fabrikam-fiber-inc.visualstudio.com/DefaultCollection/Azure%20Website/_apis/work/plans?api-version=3.0-preview';
+    assert.equal(actual, expected);            
+  });
+});
+
+describe('tfsGetBuildSettings', function() {
+  it('construction', function() {
+    var p = {};
+    var pp = api.tfsGetBuildSettings;
+    var actual = constructUrlTest(p,pp);
+    var expected = 'http://fabrikam-fiber-inc.visualstudio.com/DefaultCollection/_apis/build/settings?api-version=3.0';
+    assert.equal(actual, expected);            
+  });
+});
+
+describe('tfsGetBuildOptions', function() {
+  it('construction', function() {
+    var p = {};
+    var pp = api.tfsGetBuildOptions;
+    var actual = constructUrlTest(p,pp);
+    var expected = 'http://fabrikam-fiber-inc.visualstudio.com/DefaultCollection/_apis/build/options?api-version=3.0';
     assert.equal(actual, expected);            
   });
 });
@@ -77,10 +107,10 @@ describe('tfsGetBuildDefinitions', function() {
 
 describe('tfsGetBuilds', function() {
   it('construction', function() {
-    var p = {urlQuery:{definitions:1632,statusFilter:'completed',$top:100}};
+    var p = {urlQuery:{definitions:1632,statusFilter:'completed',$top:2}};
     var pp = api.tfsGetBuilds;
     var actual = constructUrlTest(p,pp);
-    var expected = 'http://fabrikam-fiber-inc.visualstudio.com/DefaultCollection/Azure%20Website/_apis/build/builds?api-version=2.0&definitions=1632&statusFilter=completed&%24top=100';
+    var expected = 'http://fabrikam-fiber-inc.visualstudio.com/DefaultCollection/Azure%20Website/_apis/build/builds?api-version=2.0&definitions=1632&statusFilter=completed&%24top=2';
     assert.equal(actual, expected);            
   });
 });
@@ -126,7 +156,7 @@ describe('tfsProjUpdateWorkItem', function() {
       "op": "add", 
       "path": "/fields/System.Title",
       "value": "sample task with title"
-    } ];
+    }];
     var p = {urlPathArgs:{type:'Task'},curlOpts:{'POSTFIELDS':JSON.stringify(postFields)},urlQuery:{validateOnly:true}};
     var pp = api.tfsProjUpdateWorkItem;
     var actual = constructUrlTest(p,pp);

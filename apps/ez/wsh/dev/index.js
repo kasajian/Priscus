@@ -4,7 +4,7 @@ var xhrSync = require('./xhrSync');
 
 var main = function() {
     if (WScript.Arguments.length < 1) {
-        WScript.StdOut.WriteLine("Must specify changeset. Example: cscript /nologo /b cs2user.js 263666");
+        WScript.StdOut.WriteLine("Must specify changeset. Example: cscript /nologo /b cs2user.cmd.js 263666");
         WScript.Quit();
     }
 

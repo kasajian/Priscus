@@ -4,7 +4,7 @@ var env = require('./env.json');
 process.env.flagLogCommand = true;
 //delete process.env.flagLogCommand
 
-var tfs = eztfs.makeTfsBasicAuthStrategy("https://kasajian.visualstudio.com/sandbox",  {'teamPrj':"sandbox Team"}, env.curlUSERNAME, env.curlPASSWORD);
+var tfs = eztfs.makeTfs("https://kasajian.visualstudio.com/sandbox",  {'teamPrj':"sandbox Team"}, eztfs.curlOptsStrategy.onBasicAuth(env.curlUSERNAME, env.curlPASSWORD));
 
 var samples = [];
 

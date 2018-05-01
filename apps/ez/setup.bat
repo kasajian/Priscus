@@ -24,4 +24,10 @@ call npm prune
 call npm link eztfs
 cd ..
 
+cd benchmarkApp
+call npm install
+call npm prune
+call npm link eztfs
+cd ..
+
 call npm ls --global --depth=0 ezcurl ezrest
