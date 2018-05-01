@@ -1,8 +1,8 @@
-var makeCommand = require('./makeCommand');
+var makeCommand = require('./makecommand');
 
 function makeMethods(api, globalConfig) {
     var obj = {};
-    Object.keys(api).forEach(function(key) {
+    Object.keys(api || {}).forEach(function(key) {
         var def = Object.assign({}, {globalConfig}, api[key]);
         obj[key] = makeCommand(def);
     });

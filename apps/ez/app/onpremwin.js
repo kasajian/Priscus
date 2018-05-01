@@ -3,26 +3,19 @@ var eztfs = require('eztfs');
 process.env.flagLogCommand=true
 //delete process.env.flagLogCommand
 
-var curlOpts = {
-    get: eztfs.ezrest.curlCommonConfig.onPremNegotiate,
-    patch: eztfs.ezrest.curlCommonConfig.onPremNegotiatePatch
-};
-
-var tfs = eztfs.ezrest.makeMethods(eztfs.makeApi(curlOpts), Object.assign(eztfs.globalConfig, {
-    defaultUrlBasePath: "http://swtfsss.dev.wonderware.com:8080/tfs/SimSci",
-    defaultUrlPathArgs: {'teamPrj':"NextGen Sim"}
-}));
-
+var tfs = eztfs.makeTfsOnPremNegotiateStrategy("http://swtfsss.dev.wonderware.com:8080/tfs/SimSci",  {'teamPrj':"NextGen Sim"});
 
 var samples = [];
 
 function dump(promise) {
-    promise.then(function(data) {
-        console.dir(JSON.parse(data.body));
-    }).catch(function(data) {
-        console.dir('statusCode:' + data.statusCode);
-        console.dir('body:' + data.body);
-        console.dir('headers:' + data.headers);
+    promise
+    .then(function(data) {
+        console.log('response:'); console.dir(JSON.parse(data.body));
+    })
+    .catch(function(data) {
+        console.error('Error'); console.dir(data.statusCode);
+        console.dir(data.body);
+        console.dir(data.headers);
     });
     return promise;
 }
@@ -56,6 +49,27 @@ samples.push(Sample_tfsGetTestResults);
 function Sample_tfsGetTestResults() {
     console.log(); console.log("tfs.tfsGetTestResults:");
     var promise = tfs.tfsGetTestResults({urlPathArgs:{testRunId:207812}, urlQuery:{detailsToInclude:'WorkItems,Iterations',$top:1}});
+    return dump(promise); // replace with application logic
+}
+
+samples.push(Sample_tfsGetWorkPlans);
+function Sample_tfsGetWorkPlans() {
+    console.log(); console.log("tfs.tfsGetWorkPlans:");
+    var promise = tfs.tfsGetWorkPlans();
+    return dump(promise); // replace with application logic
+}
+
+samples.push(Sample_tfsGetBuildSettings);
+function Sample_tfsGetBuildSettings() {
+    console.log(); console.log("tfs.tfsGetBuildSettings:");
+    var promise = tfs.tfsGetBuildSettings();
+    return dump(promise); // replace with application logic
+}
+
+samples.push(Sample_tfsGetBuildOptions);
+function Sample_tfsGetBuildOptions() {
+    console.log(); console.log("tfs.tfsGetBuildOptions:");
+    var promise = tfs.tfsGetBuildOptions();
     return dump(promise); // replace with application logic
 }
 
@@ -119,7 +133,11 @@ function Sample_tfsProjUpdateWorkItem() {
 function run(samplesLeft) {
     if (samplesLeft.length === 0) return;
     samplesLeft[0]().then(function() {
-        run(samplesLeft.slice(1));
+        try {
+            run(samplesLeft.slice(1));
+        } catch (error) {
+            console.error(error);            
+        }
     })
 }
 run(samples);

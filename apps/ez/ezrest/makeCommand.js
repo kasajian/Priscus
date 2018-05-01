@@ -50,7 +50,7 @@ function makeCommand(p) {
 function mergeEach() {
     var m = {};
     [].slice.call(arguments).forEach(function(obj) {
-        Object.keys(obj).forEach(function (key) {
+        Object.keys(obj || {}).forEach(function (key) {
             m[key] = typeof(obj[key]) === 'object' ? Object.assign({}, m[key], obj[key]) : obj[key];
         });
     });

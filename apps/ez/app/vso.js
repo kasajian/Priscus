@@ -4,26 +4,17 @@ var env = require('./env.json');
 process.env.flagLogCommand = true;
 //delete process.env.flagLogCommand
 
-var curlOpts = {
-    get: Object.assign({}, eztfs.ezrest.curlCommonConfig.basicAuth, {'USERNAME': env.curlUSERNAME,'PASSWORD': env.curlPASSWORD}),
-    patch: Object.assign({}, eztfs.ezrest.curlCommonConfig.basicAuthPatch, {'USERNAME': env.curlUSERNAME,'PASSWORD': env.curlPASSWORD})
-};
-
-var tfs = eztfs.ezrest.makeMethods(eztfs.makeApi(curlOpts), Object.assign(eztfs.globalConfig, {
-    defaultUrlBasePath: "https://kasajian.visualstudio.com/sandbox",
-    defaultUrlPathArgs: {'teamPrj':"sandbox Team"}
-}));
-
+var tfs = eztfs.makeTfsBasicAuthStrategy("https://kasajian.visualstudio.com/sandbox",  {'teamPrj':"sandbox Team"}, env.curlUSERNAME, env.curlPASSWORD);
 
 var samples = [];
 
 function dump(promise) {
     promise.then(function(data) {
-        console.dir(JSON.parse(data.body));
+        console.log('response:'); console.dir(JSON.parse(data.body));
     }).catch(function(data) {
-        console.dir('statusCode:' + data.statusCode);
-        console.dir('body:' + data.body);
-        console.dir('headers:' + data.headers);
+        console.error('Error'); console.dir(data.statusCode);
+        console.dir(data.body);
+        console.dir(data.headers);
     });
     return promise;
 }
@@ -39,18 +30,17 @@ function Sample_tfsGetChangeset() {
     return dump(promise); // replace with application logic
 }
 
-
-// samples.push(Sample_tfsGetWorkItem);
-// function Sample_tfsGetWorkItem() {
-//     console.log(); console.log("tfs.tfsGetWorkItem:");
-//     var promise = tfs.tfsGetWorkItem({urlQuery:{ids:472884,fields:"System.Id,System.WorkItemType,System.Title,System.State"}});
-//     return dump(promise); // replace with application logic
-// }
+samples.push(Sample_tfsGetWorkItem);
+function Sample_tfsGetWorkItem() {
+    console.log(); console.log("tfs.tfsGetWorkItem:");
+    var promise = tfs.tfsGetWorkItem({urlQuery:{ids:1,fields:"System.Id,System.WorkItemType,System.Title,System.State"}});
+    return dump(promise); // replace with application logic
+}
 
 // samples.push(Sample_tfsGetTestRuns);
 // function Sample_tfsGetTestRuns() {
 //     console.log(); console.log("tfs.tfsGetTestRuns:");
-//     var promise = tfs.tfsGetTestRuns({urlQuery:{$top:2,includeRunDetails:true}});
+//     var promise = tfs.tfsGetTestRuns({urlQuery:{includeRunDetails:true}});
 //     return dump(promise); // replace with application logic
 // }
 
@@ -64,7 +54,7 @@ function Sample_tfsGetChangeset() {
 // samples.push(Sample_tfsGetBuildDefinitions);
 // function Sample_tfsGetBuildDefinitions() {
 //     console.log(); console.log("tfs.tfsGetBuildDefinitions:");
-//     var promise = tfs.tfsGetBuildDefinitions({urlQuery:{name:'BuildAll.Dev.Integration'}});
+//     var promise = tfs.tfsGetBuildDefinitions();
 //     return dump(promise); // replace with application logic
 // }
 
@@ -97,7 +87,7 @@ function Sample_tfsGetChangeset() {
 //         "path": "/fields/System.Tags",
 //         "value": "dummytag1_dontremove"
 //     } ];
-//     var promise = tfs.tfsUpdateWorkItem({urlPathArgs:{id:506661},curlOpts:{'POSTFIELDS':JSON.stringify(postFields)},urlQuery:{validateOnly:true}});
+//     var promise = tfs.tfsUpdateWorkItem({urlPathArgs:{id:1},curlOpts:{'POSTFIELDS':JSON.stringify(postFields)},urlQuery:{validateOnly:true}});
 //     return dump(promise); // replace with application logic
 // }
 
@@ -121,7 +111,11 @@ function Sample_tfsGetChangeset() {
 function run(samplesLeft) {
     if (samplesLeft.length === 0) return;
     samplesLeft[0]().then(function() {
-        run(samplesLeft.slice(1));
+        try {
+            run(samplesLeft.slice(1));
+        } catch (error) {
+            console.error(error);            
+        }
     })
 }
 run(samples);

@@ -1,7 +1,7 @@
 var Promise = require('bluebird')
 var Curl = require('node-libcurl').Curl;
 var url = require('url');
-var commonConfig = require('./commonConfig.js');
+var commonConfig = require('./commonconfig.js');
 
 // Use libcurl so that we can use spnego.  This is so we can leverage Integrated Windows Authentication,
 // single sign-on for HTTP requests and not require user to enter user name and password when already authenticated.
