@@ -3,23 +3,15 @@ var makeApi = require('./makeapi');
 var globalConfig = require('./globalconfig');
 
 function makeOnPremNegotiateCurlOpts() {
-    return {
-        get: ezrest.curlCommonConfig.onPremNegotiate,
-        post: ezrest.curlCommonConfig.onPremNegotiatePost,
-        put: ezrest.curlCommonConfig.onPremNegotiatePut,
-        delete: ezrest.curlCommonConfig.onPremNegotiateDelete,
-        patch: ezrest.curlCommonConfig.onPremNegotiatePatch
-    };
+    return ezrest.curlCommonConfig.onPremNegotiate;
 }
 
 function makeBasicAuthCurlOpts(username, password) {
-    return {
-        get: Object.assign({}, ezrest.curlCommonConfig.basicAuth, {'USERNAME': username,'PASSWORD': password}),
-        post: Object.assign({}, ezrest.curlCommonConfig.basicAuthPost, {'USERNAME': username,'PASSWORD': password}),
-        put: Object.assign({}, ezrest.curlCommonConfig.basicAuthPut, {'USERNAME': username,'PASSWORD': password}),
-        delete: Object.assign({}, ezrest.curlCommonConfig.basicAuthDelete, {'USERNAME': username,'PASSWORD': password}),
-        patch: Object.assign({}, ezrest.curlCommonConfig.basicAuthPatch, {'USERNAME': username,'PASSWORD': password})
-    };
+    var obj = [];
+    Object.keys(ezrest.curlCommonConfig.basicAuth).forEach(function(key) {
+        obj[key] = Object.assign({}, ezrest.curlCommonConfig.basicAuth[key], {'USERNAME': username,'PASSWORD': password});
+    });
+    return obj;
 }
 
 function makeTfs(urlBasePath, urlPathArgs, curlOpts) {

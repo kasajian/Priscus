@@ -1,5 +1,6 @@
 {
   "name": "cs2user",
+  "version": "1.0.0",
   "scripts": {
     "jscriptify": "jscriptify",
     "build": "node_modules\\.bin\\jscriptify index.js >cs2user.cmd.js && copy cs2user.cmd.js .. >nul",
