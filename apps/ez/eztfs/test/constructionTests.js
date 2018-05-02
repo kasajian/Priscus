@@ -10,8 +10,8 @@ var api = eztfs.makeApi({
 });
 var tfs = eztfs.ezrest.makeMethods(api, eztfs.globalConfig);
 
-var constructUrl = eztfs.ezrest.makeCommand.constructUrl;
-var mergeEach = eztfs.ezrest.makeCommand.mergeEach;
+var constructUrl = eztfs.ezrest.requester.constructUrl;
+var mergeEach = eztfs.ezrest.requester.mergeEach;
 
 function constructUrlTest(p, pp) {
   p = Object.assign({}, {globalConfig:eztfs.globalConfig}, p);
@@ -57,7 +57,7 @@ describe('tfsGetTestRuns', function() {
 
 describe('tfsGetTestResults', function() {
   it('construction', function() {
-    var p = {urlPathArgs:{testRunId:207812}, urlQuery:{detailsToInclude:'WorkItems,Iterations',$top:100}};
+    var p = {urlPathArgs:{runId:207812}, urlQuery:{detailsToInclude:'WorkItems,Iterations',$top:100}};
     var pp = api.tfsGetTestResults;
     var actual = constructUrlTest(p,pp);
     var expected = 'http://fabrikam-fiber-inc.visualstudio.com/DefaultCollection/Azure%20Website/_apis/test/runs/207812/results?api-version=3.0&detailsToInclude=WorkItems%2CIterations&%24top=100';

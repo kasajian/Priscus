@@ -15,10 +15,12 @@ function makeBasicAuthCurlOpts(username, password) {
 }
 
 function makeTfs(urlBasePath, urlPathArgs, curlOpts) {
-    return ezrest.makeMethods(makeApi(curlOpts), Object.assign(globalConfig, {
+    const tfs = ezrest.makeMethods(makeApi(curlOpts), Object.assign(globalConfig, {
         defaultUrlBasePath: urlBasePath,
         defaultUrlPathArgs: urlPathArgs
     }));
+    tfs.wget = function(urlString) { return ezrest.requester.wget(urlString, curlOpts.get); }
+    return tfs;
 }
 
 module.exports = {

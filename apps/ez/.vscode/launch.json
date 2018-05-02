@@ -8,6 +8,12 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "benchmarkApp",
+            "program": "${workspaceFolder}/benchmarkApp/server.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "app onpremwin",
             "program": "${workspaceFolder}/app/onpremwin.js"
         },

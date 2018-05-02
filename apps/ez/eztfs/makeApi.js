@@ -28,6 +28,15 @@ function makeApi(curlOpts) {
         // });
         tfsGetTestRuns: {urlPathTpl:'{urlBasePath}/{teamPrj}/_apis/test/runs', curlOpts:curlOpts.get},
 
+        // Get test runs
+        //
+        // Example:
+        //
+        // tfs.tfsGetTestRunAttachments([], {top:5,includeRunDetails:true}).then(function(data) {
+        //     console.dir(JSON.parse(data.body));
+        // });
+        tfsGetTestRunAttachments: {urlPathTpl:'{urlBasePath}/{teamPrj}/_apis/test/runs/{runId}/attachments', urlQuery:{ 'api-version': '3.0-preview' }, curlOpts:curlOpts.get},
+
         // Get rest results
         //
         // Example:
@@ -35,7 +44,7 @@ function makeApi(curlOpts) {
         // tfs.tfsGetTestResults({urlPathArgs:[207812], urlQuery:{detailsToInclude:'WorkItems,Iterations',$top:1}}).then(function(data) {
         //     console.dir(JSON.parse(data.body));
         // });
-        tfsGetTestResults: {urlPathTpl:'{urlBasePath}/{teamPrj}/_apis/test/runs/{testRunId}/results', urlQuery:{ 'api-version': '3.0' }, curlOpts:curlOpts.get},
+        tfsGetTestResults: {urlPathTpl:'{urlBasePath}/{teamPrj}/_apis/test/runs/{runId}/results', urlQuery:{ 'api-version': '3.0' }, curlOpts:curlOpts.get},
 
         // Get Work Plans
         // Example:

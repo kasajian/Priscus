@@ -1,4 +1,5 @@
-var makeCommand = require('./makecommand');
+var requester = require('./requester');
+var makeCommand = requester.makeCommand;
 
 function makeMethods(api, globalConfig) {
     var obj = {};
@@ -11,6 +12,6 @@ function makeMethods(api, globalConfig) {
 
 module.exports = {
     curlCommonConfig: require('ezcurl').commonConfig,
-    makeCommand,
+    requester,
     makeMethods
 };

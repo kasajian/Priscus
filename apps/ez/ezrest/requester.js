@@ -1,6 +1,5 @@
 var util = require('util');
 var querystring = require('querystring');
-var Promise = require('bluebird')
 var urltemplate = require('url-template');
 var ezcurl = require('ezcurl');
 
@@ -39,11 +38,9 @@ function makeCommand(p) {
     //  curlOpts
     // }
     return function(pp) {
-        return new Promise(function (resolve) {
-            m = mergeEach(p, pp);
-            var url = constructUrl(m);
-            resolve(ezcurl.perform(ezcurl.createFor(url, m.curlOpts)));
-        });
+        m = mergeEach(p, pp);
+        var url = constructUrl(m);
+        return ezcurl.perform(ezcurl.createFor(url, m.curlOpts));
     }
 }
 
@@ -57,8 +54,8 @@ function mergeEach() {
     return m;
 }
 
-// for testing
-makeCommand.constructUrl = constructUrl;
-makeCommand.mergeEach = mergeEach;
-
-module.exports = makeCommand;
+function wget(urlString, curlOpts) {
+    return ezcurl.perform(ezcurl.createFor(urlString, curlOpts));
+} 
+  
+module.exports = { makeCommand, wget, constructUrl, mergeEach };

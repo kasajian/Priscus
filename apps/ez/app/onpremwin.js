@@ -48,7 +48,7 @@ function Sample_tfsGetTestRuns() {
 samples.push(Sample_tfsGetTestResults);
 function Sample_tfsGetTestResults() {
     console.log(); console.log("tfs.tfsGetTestResults:");
-    var promise = tfs.tfsGetTestResults({urlPathArgs:{testRunId:207812}, urlQuery:{detailsToInclude:'WorkItems,Iterations',$top:1}});
+    var promise = tfs.tfsGetTestResults({urlPathArgs:{runId:207812}, urlQuery:{detailsToInclude:'WorkItems,Iterations',$top:1}});
     return dump(promise); // replace with application logic
 }
 
